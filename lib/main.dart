@@ -38,6 +38,21 @@ class _QuizPageState extends State<QuizPage> {
     Question('A slug\'s blood is green.', true)
   ];
 
+  void updateQuestion(bool userAnswer) {
+    setState(() {
+      if (questions[currentIndex].answer == userAnswer) {
+        scoreKeeper.add(Icon(Icons.check, color: Colors.green,));
+      } else {
+        scoreKeeper.add(Icon(Icons.close, color: Colors.red,));
+      }
+
+      if (currentIndex >= questions.length - 1) {
+        currentIndex = 0;
+      } else
+        currentIndex++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -74,18 +89,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                setState(() {
-                  if (questions[currentIndex].answer) {
-                    scoreKeeper.add(Icon(Icons.check, color: Colors.green,));
-                  } else {
-                    scoreKeeper.add(Icon(Icons.close, color: Colors.red,));
-                  }
-
-                  if (currentIndex >= questions.length - 1) {
-                    currentIndex = 0;
-                  } else
-                    currentIndex++;
-                });
+                updateQuestion(true);
               },
             ),
           ),
@@ -103,18 +107,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                setState(() {
-                  if (questions[currentIndex].answer) {
-                    scoreKeeper.add(Icon(Icons.close, color: Colors.red,));
-                  } else {
-                    scoreKeeper.add(Icon(Icons.check, color: Colors.green,));
-                  }
-
-                  if (currentIndex >= questions.length - 1) {
-                    currentIndex = 0;
-                  } else
-                    currentIndex++;
-                });
+                updateQuestion(false);
               },
             ),
           ),
