@@ -41,11 +41,17 @@ class QuizBrain {
     return _questions[_currentIndex].answer;
   }
 
-  void nextQuestion() {
+  int nextQuestion() {
     if (_currentIndex < _questions.length - 1) {
       _currentIndex++;
     } else
-      _currentIndex = 0;
+      _currentIndex = -1;
+
+    return _currentIndex;
+  }
+
+  void restartQuestionIndex() {
+    _currentIndex = 0;
   }
 
   int getQuestionNumber() {
